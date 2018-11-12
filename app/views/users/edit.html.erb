@@ -1,6 +1,13 @@
 <%= form_for @user, url: user_path(@user.id), html: { method: :patch } do |f| %>
-  <p>編集する</p>
+  <p>編集する</p>
   <p>お名前：<%= f.text_field :name %></p>
   <p>年齢：<%= f.text_field :age %></p>
+  <p>画像：
+
+    <p>
+      <%= image_tag @user.image_url(:thumb), :height => '40px:' if @user.image.present? %>
+    </p>
+    <%= f.file_field :image %>
+  </p>
   <input type="submit" name="" value="更新する">
 <% end %>

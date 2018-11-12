@@ -1,5 +1,8 @@
 <%= form_for @user do |f| %>
   <p>お名前：<%= f.text_field :name %></p>
   <p>年齢：<%= f.text_field :age %></p>
+  <p>
+    <%= f.file_field :image %>
+  </p>
   <input type="submit" name="" value="新規登録">
 <% end %>
