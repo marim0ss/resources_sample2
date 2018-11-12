@@ -1,0 +1,20 @@
+
+
+<div class="main users-index">
+
+  <%= link_to "新規登録へ", new_user_path %>
+
+  <div class="container">
+
+    <% @users.each do |user| %>
+      <div class="users-index-item"><!-- cssファイルでスタイル定義してる-->
+
+        <%= user.name %>
+        <%= user.age %>
+
+        <%= link_to "編集", edit_user_path(user.id) %>
+        <%= link_to "削除", "/users/#{user.id}", method: :delete, data: {confirm: "削除しますか？"} %>
+      </div>
+    <% end %>
+  </div>
+</div>
