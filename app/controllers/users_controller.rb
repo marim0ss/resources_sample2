@@ -10,8 +10,14 @@ class UsersController < ApplicationController
   end
 
   def create
-    User.create(users_params)
-    redirect_to users_path
+    @user = User.create(users_params)
+
+    if @user
+
+      # 新規登録時にログイン状態にする
+      session[:user_id] = @user.id
+      redirect_to users_path
+    end
   end
 
 
@@ -43,7 +49,13 @@ class UsersController < ApplicationController
     @user = User.find_by(email: params[:email],
                           password: params[:password])
     if @user
-      redirect_to users_path # ログインできたら
+      # @user.idを、user_idキーとして変数sessionに代入→ブラウザにログインユーザー情報が保持される
+      session[:user_id] = @user.id
+
+      flash[:notice] = "ログインしました"
+
+
+      redirect_to users_path
     else
       # バリデーションではないログイン失敗時のメッセージは自作
       @error_maessage = "無効なログインです"
@@ -55,6 +67,14 @@ class UsersController < ApplicationController
       render("users/login_form")
     end
   end
+
+
+  def logout
+    session[:user_id] = nil
+    flash[:notice] = "ログアウトしました"
+    redirect_to("/login")
+  end
+
 
   private
   def users_params

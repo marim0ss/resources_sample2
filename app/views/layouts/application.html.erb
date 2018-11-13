@@ -10,10 +10,22 @@
 
   <body>
     <header>
-      <%= link_to "一覧へ", users_path %>
-      <%= link_to "新規登録", new_user_path %>
-      <%= link_to "ログイン", "/login" %>
+      <% if session[:user_id] %>
+        <%= link_to "一覧へ", users_path %>
+
+        ログイン中のユーザーid：
+        <%= session[:user_id] %>
+        <%= link_to("ログアウト", "/logout", {method: :post}) %>
+      <% else %>
+        <%= link_to "ログイン", "/login" %>
+        <%= link_to "新規登録", new_user_path %>
+      <% end %>
     </header>
+
+    <% if flash[:notice] %>
+      <%= flash[:notice] %>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

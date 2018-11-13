@@ -6,6 +6,7 @@
     <% @users.each do |user| %>
       <div class="users-index-item"><!-- cssファイルでスタイル定義してる-->
 
+        <%= user.id %>
         <%= user.name %>
         <%= user.age %>
 
